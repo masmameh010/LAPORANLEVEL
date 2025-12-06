@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>LAPORAN LEVELNET by ASN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #1d4ed8 0, #020617 45%, #020617 100%);
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 980px;
+      width: 100%;
+      padding: 16px 12px 24px;
+    }
+    .card {
+      background: rgba(2, 6, 23, 0.92);
+      backdrop-filter: blur(14px);
+      border-radius: 18px;
+      padding: 16px 12px 18px;
+      box-shadow: 0 22px 80px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    /* HERO / HEADER */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+      flex-wrap: nowrap;
+    }
+    .hero-logo {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #38bdf8 0, #0ea5e9 35%, #1d4ed8 75%, #020617 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.6);
+      overflow: hidden;
+    }
+    .hero-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .hero-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.15;
+    }
+    .hero-title span {
+      color: #38bdf8;
+    }
+    .hero-sub {
+      font-size: 0.9rem;
+      color: #cbd5f5;
+      margin-top: 4px;
+    }
+    .hero-desc {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: rgba(56, 189, 248, 0.08);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      margin-bottom: 12px;
+    }
+
+    /* MENU */
+    .menu-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 10px 0 12px;
+    }
+    .menu-btn {
+      flex: 1 1 46%;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      padding: 7px 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: #020617;
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .menu-btn.active {
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      border-color: transparent;
+      color: #e5e7eb;
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.45);
+    }
+
+    .form-section {
+      display: none;
+      margin-top: 4px;
+    }
+    .form-section.active {
+      display: block;
+    }
+
+    .field-group {
+      margin-bottom: 14px;
+    }
+    .field-group-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      margin-bottom: 5px;
+    }
+    label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 3px;
+      color: #9ca3af;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 8px 12px;
+      margin-bottom: 6px;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5);
+      background: #020617;
+    }
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      white-space: pre;
+    }
+    .helper {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      margin-top: 3px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0;
+    }
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 9px 16px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      color: #e5e7eb;
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.45);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 40px rgba(37, 99, 235, 0.55);
+    }
+    .btn-secondary {
+      background: #020617;
+      color: #e5e7eb;
+      border: 1px solid #4b5563;
+    }
+    .btn-secondary:hover {
+      background: #111827;
+      transform: translateY(-1px);
+    }
+
+    .output-label {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+    #output {
+      min-height: 180px;
+    }
+
+    .footer {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: #9ca3af;
+      text-align: center;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(75, 85, 99, 0.7);
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 10px 8px 20px;
+      }
+      .card {
+        padding: 14px 10px 16px;
+      }
+      .hero {
+        align-items: flex-start;
+      }
+      .hero-logo {
+        width: 46px;
+        height: 46px;
+      }
+      .hero-title {
+        font-size: 1.05rem;
+      }
+      .hero-sub {
+        font-size: 0.82rem;
+      }
+      .hero-desc {
+        font-size: 0.78rem;
+      }
+      .menu-btn {
+        flex: 1 1 48%;
+        font-size: 0.78rem;
+        padding: 7px 8px;
+      }
+      textarea {
+        min-height: 170px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <!-- HERO HEADER -->
+      <div class="hero">
+        <div class="hero-logo">
+          <!-- Ganti src berikut dengan logo saat deploy, misal: /assets/logo-levelnet.png -->
+          <!-- Jika belum ada logo, biarkan kosong: bulatan akan jadi aksen saja -->
+          <!-- <img src="logo-levelnet.png" alt="Logo LevelNet" /> -->
+          <span style="font-size:0.9rem;font-weight:700;">LV</span>
+        </div>
+        <div class="hero-text">
+          <div class="hero-title">
+            LAPORAN <span>LEVELNET</span><br />by ASN
+          </div>
+          <div class="hero-sub">Dibuat Dengan Sepenuh Hati</div>
+          <div class="hero-desc">
+            Gunakan web ini untuk generate laporan kegiatan kerja Anda: pemasangan baru, maintenance, aktivasi, dan replace pelanggan.
+          </div>
+        </div>
+      </div>
+
+      <div class="badge">
+        📡 Internal Tool • NOC & Teknisi LevelNet
+      </div>
+
+      <!-- MENU -->
+      <div class="menu-bar">
+        <button type="button" class="menu-btn active" data-menu="pemasangan">📶 Pemasangan Baru</button>
+        <button type="button" class="menu-btn" data-menu="maintenance">🛠️ Maintenance</button>
+        <button type="button" class="menu-btn" data-menu="aktivasi">⚡ Aktivasi</button>
+        <button type="button" class="menu-btn" data-menu="replace">♻️ Replace Pelanggan</button>
+      </div>
+
+      <!-- ================= FORM PEMASANGAN BARU ================= -->
+      <div class="form-section active" id="form-pemasangan">
+        <div class="field-group">
+          <div class="field-group-title">Data Pelanggan</div>
+          <div class="grid">
+            <div>
+              <label for="psg_tanggal">Tanggal Pemasangan</label>
+              <input type="date" id="psg_tanggal" />
+            </div>
+            <div>
+              <label for="psg_idPelanggan">ID Pelanggan (boleh dikosongi)</label>
+              <input type="text" id="psg_idPelanggan" placeholder="Contoh: LVL-00123" />
+            </div>
+            <div>
+              <label for="psg_nama">Nama</label>
+              <input type="text" id="psg_nama" placeholder="Nama Pelanggan" />
+            </div>
+            <div>
+              <label for="psg_alamat">Alamat</label>
+              <input type="text" id="psg_alamat" placeholder="Alamat Lengkap" />
+            </div>
+            <div>
+              <label for="psg_cluster">Cluster (opsional)</label>
+              <select id="psg_cluster">
+                <option value="">— Pilih Cluster (boleh kosong) —</option>
+                <option value="BANYUMUDAL">BANYUMUDAL</option>
+                <option value="MOGA">MOGA</option>
+                <option value="CONSORSIUM">CONSORSIUM</option>
+                <option value="GAMBUHAN">GAMBUHAN</option>
+                <option value="PULOSARI">PULOSARI</option>
+                <option value="EXISTING">EXISTING</option>
+                <option value="BELIK">BELIK</option>
+                <option value="KAJENENGAN">KAJENENGAN</option>
+              </select>
+            </div>
+            <div>
+              <label for="psg_paket">Paket</label>
+              <input type="text" id="psg_paket" placeholder="Contoh: 20 Mbps / 50 Mbps" />
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Informasi Teknis</div>
+          <div class="grid">
+            <div>
+              <label for="psg_kodeOdp">Kode ODP</label>
+              <input type="text" id="psg_kodeOdp" placeholder="Contoh: ODP-LVL-01" />
+            </div>
+            <div>
+              <label for="psg_redamanOdp">Nilai Redaman ODP</label>
+              <input type="text" id="psg_redamanOdp" placeholder="Contoh: -18 dB" />
+            </div>
+            <div>
+              <label for="psg_portDigunakan">Port Digunakan</label>
+              <input type="text" id="psg_portDigunakan" placeholder="Contoh: Port 06" />
+            </div>
+            <div>
+              <label for="psg_sisaPort">Sisa Port Tersedia</label>
+              <input type="text" id="psg_sisaPort" placeholder="Contoh: 4 Port" />
+            </div>
+            <div>
+              <label for="psg_redamanPelanggan">Nilai Redaman ke Pelanggan</label>
+              <input type="text" id="psg_redamanPelanggan" placeholder="Contoh: -24 dB" />
+            </div>
+            <div>
+              <label for="psg_jenisOnu">Jenis ONU</label>
+              <select id="psg_jenisOnu">
+                <option value="">— Pilih Jenis (boleh kosong) —</option>
+                <option value="EPON">EPON</option>
+                <option value="GPON">GPON</option>
+              </select>
+            </div>
+            <div>
+              <label for="psg_merekOnu">Merek & Tipe</label>
+              <select id="psg_merekOnu">
+                <option value="">— Pilih Merek & Tipe (boleh kosong) —</option>
+                <option value="FIBERHOME ACS">FIBERHOME ACS</option>
+                <option value="FIBERHOME MANUAL">FIBERHOME MANUAL</option>
+                <option value="ZTE">ZTE</option>
+                <option value="HUAWEI">HUAWEI</option>
+                <option value="ZYMLINK">ZYMLINK</option>
+                <option value="GGCLINK">GGCLINK</option>
+                <option value="China Mobile">China Mobile</option>
+                <option value="GM220">GM220</option>
+              </select>
+            </div>
+            <div>
+              <label for="psg_serialNumber">Serial Number</label>
+              <input type="text" id="psg_serialNumber" placeholder="SN ONU" />
+            </div>
+            <div>
+              <label for="psg_usernamePppoe">Username PPPoE</label>
+              <input type="text" id="psg_usernamePppoe" placeholder="Contoh: 0812xxxx@levelnet" />
+            </div>
+            <div>
+              <label for="psg_statusAktivasi">Status Aktivasi</label>
+              <select id="psg_statusAktivasi">
+                <option value="">— Pilih Status (boleh kosong) —</option>
+                <option value="AKTIF-ONLINE✅">AKTIF-ONLINE✅</option>
+                <option value="PENDING ⚠">PENDING ⚠</option>
+              </select>
+            </div>
+            <div>
+              <label for="psg_speedtest">Speedtest</label>
+              <input type="text" id="psg_speedtest" placeholder="Contoh: 19 Mbps / 48 Mbps" />
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Material Digunakan</div>
+          <div class="grid">
+            <div>
+              <label for="psg_modem">Modem</label>
+              <input type="text" id="psg_modem" placeholder="Jumlah / Keterangan" />
+            </div>
+            <div>
+              <label for="psg_adaptor">Adaptor</label>
+              <input type="text" id="psg_adaptor" placeholder="Jumlah / Keterangan" />
+            </div>
+            <div>
+              <label for="psg_fastconnector">Fastconnector</label>
+              <input type="text" id="psg_fastconnector" placeholder="Jumlah / Keterangan" />
+            </div>
+            <div>
+              <label for="psg_patchcore">Patchcore</label>
+              <input type="text" id="psg_patchcore" placeholder="Panjang / Jumlah" />
+            </div>
+            <div>
+              <label for="psg_dropcore">Dropcore</label>
+              <input type="text" id="psg_dropcore" placeholder="Panjang / Jumlah" />
+            </div>
+          </div>
+          <label for="psg_materialExtra">Material tambahan (opsional, tulis manual per baris)</label>
+          <textarea id="psg_materialExtra" placeholder="Contoh:&#10;• Kabel UTP tambahan 5m&#10;• Clamp tiang 2 pcs"></textarea>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Teknisi & Catatan</div>
+          <div class="grid">
+            <div>
+              <label for="psg_teknisi">Teknisi</label>
+              <input type="text" id="psg_teknisi" placeholder="Nama Teknisi / Tim" />
+            </div>
+            <div>
+              <label for="psg_waktu">Waktu Pengerjaan</label>
+              <input type="text" id="psg_waktu" placeholder="Contoh: 10.00–11.30 WIB" />
+            </div>
+          </div>
+          <label for="psg_catatan">Catatan</label>
+          <textarea id="psg_catatan" placeholder="Catatan tambahan (jika ada)..."></textarea>
+          <div class="helper">
+            Untuk foto OPM & Speedtest tetap kirim sebagai lampiran di WA/Telegram.
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn-primary" id="btnPemasangan">
+            ⚙️ Generate Laporan Pemasangan
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= FORM MAINTENANCE ================= -->
+      <div class="form-section" id="form-maintenance">
+        <div class="field-group">
+          <div class="field-group-title">Data Pelanggan</div>
+          <div class="grid">
+            <div>
+              <label for="mtn_tanggal">Tanggal</label>
+              <input type="date" id="mtn_tanggal" />
+            </div>
+            <div>
+              <label for="mtn_idPelanggan">ID Pelanggan</label>
+              <input type="text" id="mtn_idPelanggan" />
+            </div>
+            <div>
+              <label for="mtn_nama">Nama</label>
+              <input type="text" id="mtn_nama" />
+            </div>
+            <div>
+              <label for="mtn_alamat">Alamat</label>
+              <input type="text" id="mtn_alamat" />
+            </div>
+            <div>
+              <label for="mtn_cluster">Cluster</label>
+              <select id="mtn_cluster">
+                <option value="">— Pilih Cluster (boleh kosong) —</option>
+                <option value="BANYUMUDAL">BANYUMUDAL</option>
+                <option value="MOGA">MOGA</option>
+                <option value="CONSORSIUM">CONSORSIUM</option>
+                <option value="GAMBUHAN">GAMBUHAN</option>
+                <option value="PULOSARI">PULOSARI</option>
+                <option value="EXISTING">EXISTING</option>
+                <option value="BELIK">BELIK</option>
+                <option value="KAJENENGAN">KAJENENGAN</option>
+              </select>
+            </div>
+            <div>
+              <label for="mtn_jenisGangguan">Jenis Gangguan</label>
+              <input type="text" id="mtn_jenisGangguan" placeholder="Contoh: Tidak ada koneksi / Lambat" />
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Tindakan Perbaikan</div>
+          <label for="mtn_tindakan">Tindakan (satu poin per baris)</label>
+          <textarea id="mtn_tindakan" placeholder="Contoh:&#10;- Cek fisik kabel dan konektor&#10;- Reset ONU dan binding ulang"></textarea>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Informasi ODP & ONU</div>
+          <div class="grid">
+            <div>
+              <label for="mtn_kodeOdpLama">Kode ODP Lama</label>
+              <input type="text" id="mtn_kodeOdpLama" />
+            </div>
+            <div>
+              <label for="mtn_kodeOdpBaru">Kode ODP Baru</label>
+              <input type="text" id="mtn_kodeOdpBaru" />
+            </div>
+            <div>
+              <label for="mtn_redamanOdp">Nilai Redaman ODP</label>
+              <input type="text" id="mtn_redamanOdp" />
+            </div>
+            <div>
+              <label for="mtn_portTerpakai">Port Terpakai</label>
+              <input type="text" id="mtn_portTerpakai" />
+            </div>
+            <div>
+              <label for="mtn_redamanBaru">Nilai Redaman Baru (OPM)</label>
+              <input type="text" id="mtn_redamanBaru" />
+            </div>
+            <div>
+              <label for="mtn_snLama">SN Lama</label>
+              <input type="text" id="mtn_snLama" />
+            </div>
+            <div>
+              <label for="mtn_snBaru">SN Baru</label>
+              <input type="text" id="mtn_snBaru" />
+            </div>
+            <div>
+              <label for="mtn_ppoe">PPPoE</label>
+              <input type="text" id="mtn_ppoe" />
+            </div>
+            <div>
+              <label for="mtn_status">Status</label>
+              <select id="mtn_status">
+                <option value="">— Pilih Status (boleh kosong) —</option>
+                <option value="AKTIF-ONLINE✅">AKTIF-ONLINE✅</option>
+                <option value="PENDING ⚠">PENDING ⚠</option>
+              </select>
+            </div>
+          </div>
+          <label for="mtn_speedtest">Speedtest</label>
+          <input type="text" id="mtn_speedtest" placeholder="Contoh: 20 Mbps / 45 Mbps" />
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Material & Teknisi</div>
+          <label for="mtn_material">Material Digunakan (satu baris per item)</label>
+          <textarea id="mtn_material" placeholder="Contoh:&#10;• Fastconnector 2 pcs&#10;• Patchcore 3m"></textarea>
+          <div class="grid" style="margin-top:6px;">
+            <div>
+              <label for="mtn_teknisi">Teknisi</label>
+              <input type="text" id="mtn_teknisi" />
+            </div>
+            <div>
+              <label for="mtn_waktu">Waktu Penanganan</label>
+              <input type="text" id="mtn_waktu" placeholder="Contoh: 09.30–10.15 WIB" />
+            </div>
+          </div>
+          <label for="mtn_catatan">Catatan Tambahan</label>
+          <textarea id="mtn_catatan"></textarea>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn-primary" id="btnMaintenance">
+            ⚙️ Generate Laporan Maintenance
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= FORM AKTIVASI ================= -->
+      <div class="form-section" id="form-aktivasi">
+        <div class="field-group">
+          <div class="field-group-title">Data Aktivasi</div>
+          <div class="grid">
+            <div>
+              <label for="act_sn">SN</label>
+              <input type="text" id="act_sn" placeholder="Contoh: FHTT9D3D8A98" />
+            </div>
+            <div>
+              <label for="act_ppoe">PPPoE</label>
+              <input type="text" id="act_ppoe" placeholder="Contoh: diyanaputri@mda30" />
+            </div>
+            <div>
+              <label for="act_wanMac">WAN MAC</label>
+              <input type="text" id="act_wanMac" placeholder="Contoh: EC:E6:A2:3D:8A:99" />
+            </div>
+            <div>
+              <label for="act_paket">Paket Pelanggan</label>
+              <input type="text" id="act_paket" placeholder="Contoh: 15 Mbps" />
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Tindakan NOC & Admin</div>
+          <label for="act_tindakanNoc"style="margin-top:6px;">Tindakan NOC</label>
+          <textarea id="act_tindakanNoc"placeholder="-"></textarea>
+          <label for="act_tindakanAdmin" style="margin-top:6px;">Tindakan Admin</label>
+          <textarea id="act_tindakanAdmin" placeholder="-"></textarea>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Status Pelanggan</div>
+          <label for="act_statusPelanggan">Status Pelanggan</label>
+          <select id="act_statusPelanggan">
+            <option value="">— Pilih Status (boleh kosong) —</option>
+            <option value="Aktif">Aktif</option>
+            <option value="Tidak Aktif">Tidak Aktif</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn-primary" id="btnAktivasi">
+            ⚙️ Generate Laporan Aktivasi
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= FORM REPLACE ================= -->
+      <div class="form-section" id="form-replace">
+        <div class="field-group">
+          <div class="field-group-title">Data Pelanggan</div>
+          <div class="grid">
+            <div>
+              <label for="rep_tanggal">Tanggal</label>
+              <input type="date" id="rep_tanggal" />
+            </div>
+            <div>
+              <label for="rep_nama">Nama</label>
+              <input type="text" id="rep_nama" />
+            </div>
+            <div>
+              <label for="rep_lokasi">Lokasi</label>
+              <input type="text" id="rep_lokasi" />
+            </div>
+            <div>
+              <label for="rep_cluster">Cluster</label>
+              <select id="rep_cluster">
+                <option value="">— Pilih Cluster (boleh kosong) —</option>
+                <option value="EXISTING">EXISTING</option>
+                <option value="BANYUMUDAL">BANYUMUDAL</option>
+                <option value="MOGA">MOGA</option>
+                <option value="CONSORSIUM">CONSORSIUM</option>
+                <option value="GAMBUHAN">GAMBUHAN</option>
+                <option value="PULOSARI">PULOSARI</option>
+                <option value="BELIK">BELIK</option>
+                <option value="KAJENENGAN">KAJENENGAN</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Data SN & PPPoE</div>
+          <div class="grid">
+            <div>
+              <label for="rep_snLama">SN Lama</label>
+              <input type="text" id="rep_snLama" />
+            </div>
+            <div>
+              <label for="rep_snBaru">SN Baru</label>
+              <input type="text" id="rep_snBaru" />
+            </div>
+            <div>
+              <label for="rep_ppoeLama">PPPoE Lama</label>
+              <input type="text" id="rep_ppoeLama" />
+            </div>
+            <div>
+              <label for="rep_ppoeBaru">PPPoE Baru</label>
+              <input type="text" id="rep_ppoeBaru" />
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Teknisi & Waktu</div>
+          <div class="grid">
+            <div>
+              <label for="rep_teknisi">Teknisi</label>
+              <input type="text" id="rep_teknisi" placeholder="Contoh: Cak Udin & Dili" />
+            </div>
+            <div>
+              <label for="rep_waktu">Waktu Pengerjaan</label>
+              <input type="text" id="rep_waktu" placeholder="Contoh: 32 menit" />
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Informasi ODP Sebelum</div>
+          <div class="grid">
+            <div>
+              <label for="rep_odpSebelum_kode">Kode ODP</label>
+              <input type="text" id="rep_odpSebelum_kode" />
+            </div>
+            <div>
+              <label for="rep_odpSebelum_port">Port Terpakai</label>
+              <input type="text" id="rep_odpSebelum_port" />
+            </div>
+            <div>
+              <label for="rep_odpSebelum_sisa">Sisa Port</label>
+              <input type="text" id="rep_odpSebelum_sisa" />
+            </div>
+            <div>
+              <label for="rep_odpSebelum_redaman">Nilai Redaman ODP</label>
+              <input type="text" id="rep_odpSebelum_redaman" />
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Informasi ODP Sesudah</div>
+          <div class="grid">
+            <div>
+              <label for="rep_odpSesudah_kode">Kode ODP</label>
+              <input type="text" id="rep_odpSesudah_kode" />
+            </div>
+            <div>
+              <label for="rep_odpSesudah_port">Port Terpakai</label>
+              <input type="text" id="rep_odpSesudah_port" />
+            </div>
+            <div>
+              <label for="rep_odpSesudah_sisa">Sisa Port</label>
+              <input type="text" id="rep_odpSesudah_sisa" />
+            </div>
+            <div>
+              <label for="rep_odpSesudah_redaman">Nilai Redaman ODP</label>
+              <input type="text" id="rep_odpSesudah_redaman" />
+            </div>
+            <div>
+              <label for="rep_odpSesudah_redamanPelanggan">Nilai Redaman Pelanggan</label>
+              <input type="text" id="rep_odpSesudah_redamanPelanggan" />
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Status & Material</div>
+          <div class="grid">
+            <div>
+              <label for="rep_statusAktivasi">Status Aktivasi</label>
+              <input type="text" id="rep_statusAktivasi" placeholder="Contoh: ✅ Online – Sukses" />
+            </div>
+            <div>
+              <label for="rep_speedtest">Speedtest</label>
+              <input type="text" id="rep_speedtest" placeholder="Contoh: Mbps/ms" />
+            </div>
+          </div>
+          <label for="rep_material">Material yang digunakan (jumlah & merek, 1 baris per item)</label>
+          <textarea id="rep_material" placeholder="Contoh:&#10;• Fiber home kecil acs: 1 Unit&#10;• adaptor 12volt: 1 unit"></textarea>
+          <label for="rep_barangKembali" style="margin-top:6px;">Barang kembali (1 baris per item)</label>
+          <textarea id="rep_barangKembali" placeholder="Contoh:&#10;• TP-LINK&#10;• adaptor 9 volt"></textarea>
+        </div>
+
+        <div class="field-group">
+          <div class="field-group-title">Catatan</div>
+          <label for="rep_catatan">Catatan</label>
+          <textarea id="rep_catatan" placeholder="Contoh: * replace paralel ke ODP"></textarea>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn-primary" id="btnReplace">
+            ⚙️ Generate Laporan Replace
+          </button>
+        </div>
+      </div>
+
+      <!-- OUTPUT GLOBAL -->
+      <div>
+        <div class="output-label">Teks Laporan (hasil generate, siap di-copy):</div>
+        <textarea id="output" readonly></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-secondary" id="copyBtn">
+          📋 Copy Teks Laporan
+        </button>
+      </div>
+
+      <div class="footer">
+        2025 - ADITYA SURYA NUGROHO
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Helpers
+    function val(id) {
+      return (document.getElementById(id).value || "").trim();
+    }
+
+    function formatDateToID(dateStr) {
+      if (!dateStr) return "";
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return dateStr;
+      const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+      return d.toLocaleDateString("id-ID", options);
+    }
+
+    function linesToBullets(text) {
+      if (!text.trim()) return "";
+      return text
+        .split(/\r?\n/)
+        .map(l => l.trim())
+        .filter(l => l.length > 0)
+        .map(l => (l.startsWith("•") || l.startsWith("-") ? "‎" + l : "‎• " + l))
+        .join("\n");
+    }
+
+    // Tab / Menu switching
+    const menuBtns = document.querySelectorAll(".menu-btn");
+    const forms = {
+      pemasangan: document.getElementById("form-pemasangan"),
+      maintenance: document.getElementById("form-maintenance"),
+      aktivasi: document.getElementById("form-aktivasi"),
+      replace: document.getElementById("form-replace")
+    };
+
+    menuBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-menu");
+        menuBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        Object.keys(forms).forEach(key => {
+          forms[key].classList.toggle("active", key === target);
+        });
+      });
+    });
+
+    // Generate Pemasangan
+    document.getElementById("btnPemasangan").addEventListener("click", function () {
+      const tanggal = formatDateToID(val("psg_tanggal")) || "-";
+      const idPelanggan = val("psg_idPelanggan") || "-";
+      const nama = val("psg_nama") || "-";
+      const alamat = val("psg_alamat") || "-";
+      const cluster = val("psg_cluster") || "-";
+      const paket = val("psg_paket") || "-";
+
+      const kodeOdp = val("psg_kodeOdp") || "-";
+      const redamanOdp = val("psg_redamanOdp") || "-";
+      const portDigunakan = val("psg_portDigunakan") || "-";
+      const sisaPort = val("psg_sisaPort") || "-";
+      const redamanPelanggan = val("psg_redamanPelanggan") || "-";
+      const jenisOnu = val("psg_jenisOnu") || "-";
+      const merekOnu = val("psg_merekOnu") || "-";
+      const serialNumber = val("psg_serialNumber") || "-";
+      const usernamePppoe = val("psg_usernamePppoe") || "-";
+      const statusAktivasi = val("psg_statusAktivasi") || "-";
+      const speedtest = val("psg_speedtest") || "-";
+
+      const modem = val("psg_modem") || "-";
+      const adaptor = val("psg_adaptor") || "-";
+      const fastconnector = val("psg_fastconnector") || "-";
+      const patchcore = val("psg_patchcore") || "-";
+      const dropcore = val("psg_dropcore") || "-";
+      const materialExtra = linesToBullets(val("psg_materialExtra"));
+
+      const teknisi = val("psg_teknisi") || "-";
+      const waktu = val("psg_waktu") || "-";
+      const catatan = val("psg_catatan") || "-";
+
+      let materialBlock =
+`📦 MATERIAL DIGUNAKAN :
+
+• Modem : ${modem}
+• Adaptor : ${adaptor}
+• Fastconnector : ${fastconnector}
+• Patchcore : ${patchcore}
+• Dropcore : ${dropcore}`;
+      if (materialExtra) {
+        materialBlock += "\n" + materialBlock.split("\n").length > 0 ? materialExtra : materialExtra;
+      }
+
+      const report =
+`🆕📶 LAPORAN PEMASANGAN BARU
+
+📅 TANGGAL PEMASANGAN : ${tanggal}
+🆔 ID PELANGGAN : ${idPelanggan}
+👤 NAMA : ${nama}
+📍 ALAMAT : ${alamat}
+🏘 CLUSTER : ${cluster}
+🌐 PAKET : ${paket}
+
+━━━━━━━━━━━━━━━━━━  
+📡 INFORMASI TEKNIS : 
+
+• KODE ODP : ${kodeOdp}
+• NILAI REDAMAN ODP : ${redamanOdp}
+• PORT DIGUNAKAN : ${portDigunakan}
+• SISA PORT TERSEDIA : ${sisaPort}
+• NILAI REDAMAN KE PELANGGAN : ${redamanPelanggan}
+• JENIS ONU : ${jenisOnu}
+• MEREK & TIPE : ${merekOnu}
+• SERIAL NUMBER : ${serialNumber}
+• USERNAME PPoE : ${usernamePppoe}
+
+📶 Status Aktivasi: ${statusAktivasi}
+🔁 Speedtest: ${speedtest}
+
+🖼 Foto OPM:  
+📎 [Lampiran Foto OPM dibawah laporan]
+
+🖼 Foto Speedtest:  
+📎 [Lampiran Screenshot Speedtest dibawah laporan]
+
+━━━━━━━━━━━━━━━━━━  
+${materialBlock}${materialExtra && !materialBlock.endsWith(materialExtra) ? "\n" + materialExtra : ""}
+
+🧰 Teknisi: ${teknisi}
+
+⏰ Waktu Pengerjaan: ${waktu}
+
+📎 Catatan: ${catatan}
+`;
+      document.getElementById("output").value = report;
+    });
+
+    // Generate Maintenance
+    document.getElementById("btnMaintenance").addEventListener("click", function () {
+      const tanggal = formatDateToID(val("mtn_tanggal")) || "";
+      const idPelanggan = val("mtn_idPelanggan") || "";
+      const nama = val("mtn_nama") || "";
+      const alamat = val("mtn_alamat") || "";
+      const cluster = val("mtn_cluster") || "";
+      const jenisGangguan = val("mtn_jenisGangguan") || "";
+
+      const tindakan = linesToBullets(val("mtn_tindakan"));
+
+      const kodeOdpLama = val("mtn_kodeOdpLama") || "";
+      const kodeOdpBaru = val("mtn_kodeOdpBaru") || "";
+      const redamanOdp = val("mtn_redamanOdp") || "";
+      const portTerpakai = val("mtn_portTerpakai") || "";
+      const redamanBaru = val("mtn_redamanBaru") || "";
+      const snLama = val("mtn_snLama") || "";
+      const snBaru = val("mtn_snBaru") || "";
+      const ppoe = val("mtn_ppoe") || "";
+      const status = val("mtn_status") || "";
+      const speedtest = val("mtn_speedtest") || "";
+
+      const material = linesToBullets(val("mtn_material"));
+      const teknisi = val("mtn_teknisi") || "";
+      const waktu = val("mtn_waktu") || "";
+      const catatan = val("mtn_catatan") || "";
+
+      const report =
+`🛠️ LAPORAN MAINTENANCE PELANGGAN
+‎
+‎📅 Tanggal: ${tanggal}
+‎🆔 ID Pelanggan: ${idPelanggan}
+‎👤 Nama : ${nama}
+‎📍 Alamat : ${alamat}
+‎🏘️ Cluster : ${cluster}
+‎🔧 Jenis Gangguan : ${jenisGangguan} 
+‎
+‎━━━━━━━━━━━━━━━━━━  
+‎🧰 TINDAKAN PERBAIKAN:  
+${tindakan || "‎• -"}
+‎
+‎📡 Kode ODP Lama: ${kodeOdpLama}
+     Kode ODP baru : ${kodeOdpBaru}
+‎📉  Nilai Redaman ODP : ${redamanOdp}
+‎🔌 Port Terpakai : ${portTerpakai}
+‎📉 Nilai Redaman Baru (OPM) : ${redamanBaru}
+‎✅SN lama : ${snLama}
+‎✅SN Baru : ${snBaru}
+‎✅Ppoe : ${ppoe}
+‎📶 Status : ${status}
+‎🖼️ Foto OPM :  
+‎📎 [Lampiran Foto OPM]
+‎
+‎🖼️ Foto Speedtest :  
+‎📎 [Lampiran Screenshot Speedtest]
+‎
+‎━━━━━━━━━━━━━━━━━━  
+‎📦 Material Digunakan: 
+${material || "‎• -"}
+‎
+‎👷‍♂️ Teknisi : ${teknisi}
+‎⏰ Waktu Penanganan : ${waktu}
+‎📎 Status Akhir : ✅ Normal kembali 
+‎
+‎📌 Catatan Tambahan 
+${catatan}
+`;
+      document.getElementById("output").value = report;
+    });
+
+    // Generate Aktivasi
+    document.getElementById("btnAktivasi").addEventListener("click", function () {
+      const sn = val("act_sn") || "";
+      const ppoe = val("act_ppoe") || "";
+      const wanMac = val("act_wanMac") || "";
+      const paket = val("act_paket") || "";
+      const tindakanNoc = linesToBullets(val("act_tindakanNoc")) || "-";
+      const tindakanAdmin = linesToBullets(val("act_tindakanAdmin")) || "-";
+      const statusPelanggan = val("act_statusPelanggan") || "";
+
+      const report =
+`Format Req Aktivasi
+
+SN : ${sn}
+PPoe : ${ppoe}
+WAN MAC : ${wanMac}
+Paket Pelanggan : ${paket}
+
+
+Tindakan NOC :
+${tindakanNoc}
+
+
+Tindakan Admin
+${tindakanAdmin}
+
+
+Status Pelanggan : ${statusPelanggan}
+`;
+      document.getElementById("output").value = report;
+    });
+
+    // Generate Replace
+    document.getElementById("btnReplace").addEventListener("click", function () {
+      const tanggal = formatDateToID(val("rep_tanggal"));
+      const nama = val("rep_nama") || "";
+      const lokasi = val("rep_lokasi") || "";
+      const cluster = val("rep_cluster") || "";
+
+      const snLama = val("rep_snLama") || "";
+      const snBaru = val("rep_snBaru") || "";
+      const ppoeLama = val("rep_ppoeLama") || "";
+      const ppoeBaru = val("rep_ppoeBaru") || "";
+
+      const teknisi = val("rep_teknisi") || "";
+      const waktu = val("rep_waktu") || "";
+
+      const oS_kode = val("rep_odpSebelum_kode") || "";
+      const oS_port = val("rep_odpSebelum_port") || "";
+      const oS_sisa = val("rep_odpSebelum_sisa") || "";
+      const oS_red = val("rep_odpSebelum_redaman") || "";
+
+      const oA_kode = val("rep_odpSesudah_kode") || "";
+      const oA_port = val("rep_odpSesudah_port") || "";
+      const oA_sisa = val("rep_odpSesudah_sisa") || "";
+      const oA_red = val("rep_odpSesudah_redaman") || "";
+      const oA_redPelanggan = val("rep_odpSesudah_redamanPelanggan") || "";
+
+      const statusAktivasi = val("rep_statusAktivasi") || "";
+      const speedtest = val("rep_speedtest") || "";
+
+      const material = linesToBullets(val("rep_material")) || "";
+      const barangKembali = linesToBullets(val("rep_barangKembali")) || "";
+      const catatan = val("rep_catatan") || "";
+
+      const report =
+`📋 LAPORAN REPLACE PELANGGAN
+‎
+‎📆 Tanggal        : ${tanggal}
+‎👤 Nama          : ${nama}
+‎📍 Lokasi         : ${lokasi}
+‎🏘 Cluster       : ${cluster} 
+‎✅SN   Lama  : ${snLama}
+‎✅SN   Baru : ${snBaru}
+‎✅Ppoe   Lama   : ${ppoeLama}
+‎✅Ppoe   Baru      : ${ppoeBaru}
+‎
+‎🛠 Teknisi        : ${teknisi}
+‎⏰ Waktu Pengerjaan: ${waktu}
+‎
+‎🔌 INFORMASI ODP SEBELUM 
+‎• Kode ODP       : ${oS_kode}
+‎• Port Terpakai   : ${oS_port}
+‎• Sisa Port           : ${oS_sisa}
+‎• Nilai Redaman ODP : ${oS_red}
+‎
+‎🔌 INFORMASI ODP SESUDAH
+‎• Kode ODP       : ${oA_kode}
+‎• Port Terpakai   : ${oA_port}
+‎• Sisa Port           : ${oA_sisa}
+‎• Nilai Redaman ODP : ${oA_red}
+‎• Nilai Redaman Pelanggan :${oA_redPelanggan}
+‎
+‎📶 Status Aktivasi: ${statusAktivasi}
+‎🔁 Speedtest: ${speedtest}
+‎
+‎🧰 MATRIAL YANG DI GUNAKAN JUMLAH DAN MEREK
+${material || "‎• -"}
+‎
+‎♻️ BARANG KEMBALI
+${barangKembali || "‎• -"}
+‎
+‎📝 CATATAN
+${catatan}
+`;
+      document.getElementById("output").value = report;
+    });
+
+    // Copy button
+    document.getElementById("copyBtn").addEventListener("click", function () {
+      const output = document.getElementById("output");
+      if (!output.value.trim()) {
+        alert("Generate laporan dulu sebelum copy.");
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(output.value)
+          .then(() => alert("Teks laporan sudah dicopy ke clipboard."))
+          .catch(() => {
+            output.select();
+            document.execCommand("copy");
+            alert("Teks laporan sudah dicopy (fallback).");
+          });
+      } else {
+        output.select();
+        document.execCommand("copy");
+        alert("Teks laporan sudah dicopy.");
+      }
+    });
+  </script>
+</body>
+</html>
